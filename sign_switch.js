@@ -1,11 +1,10 @@
 /*
-cron "0 9 * * *" switchSign.js, tag=switch520签到
+cron "0 9 * * *" sign_switch.js, tag=switch520签到
 */
 const axios = require('axios')
 const { JSDOM } = require('jsdom')
 const notify = require('./sendNotify')
 const { initInstance, getEnv} = require('./qlApi.js')
-// const cookieValue = 'wordpress_logged_in_aa7b8780b6e00097e499d84a557a1ad0=longaotian%7C1693196547%7CRoaiRl8Cebr1SwYRY0D2ejEIgp9uc2WBvFEijcMJlbM%7C8182c8d8ef47b20f1216dd5180b493e9a02421e886c349c5913bddcff75842cb';  // 这是你的 Cookie 值
 const getnonceURL = 'https://www.switch520.org/user/coin';
 const signinURL = 'https://www.switch520.org/wp-admin/admin-ajax.php'
 
