@@ -63,11 +63,10 @@ async function getNonce(cookieValue){
     // 现在您可以使用 doc 对象来访问和操作页面的文档对象模型（DOM）
     const buttonElement = doc.querySelector('.go-user-qiandao');
     const dataNonce = buttonElement.getAttribute('data-nonce');
-    console.log(dataNonce);
     return dataNonce; // 将 dataNonce 作为结果返回
   })
   .catch(error => {
-    console.error('请求出错：', error);
+    console.error('请求出错：', error, '检查下 cookie 有没有失效');
     throw error; // 抛出错误，让调用方知道发生了错误
   });
 }
@@ -75,7 +74,6 @@ async function getNonce(cookieValue){
 
 async function sign_in(cookieValue, remarks){
   const nonce = await getNonce(cookieValue)
-  console.log(nonce)
   const sendMessage = [remarks]
   return axios(signinURL, {
     method: 'POST',
