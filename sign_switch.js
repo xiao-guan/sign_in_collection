@@ -85,7 +85,6 @@ async function sign_in(cookieValue, remarks){
   })
   .then(response => response.data)
   .then(async json => {
-      console.log(json)
       if (json.status != 1) {
         sendMessage.push('签到失败', json.message)
         return Promise.reject(sendMessage.join(', '))
@@ -96,11 +95,9 @@ async function sign_in(cookieValue, remarks){
 
 !(async () => {
   const {cookieValueArray} = await getCookieValue()
-  // console.log(cookieValueArray)
   const message = []
   let index = 1
   for await(switchck of cookieValueArray) {
-    console.log(switchck)
     let remarks = switchck.remarks || `账号${index}`
     try {
       console.log(remarks)
