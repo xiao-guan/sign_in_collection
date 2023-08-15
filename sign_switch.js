@@ -86,7 +86,7 @@ async function sign_in(cookieValue, remarks){
   .then(response => response.data)
   .then(async json => {
       if (json.status != 1) {
-        sendMessage.push('签到失败', json.message)
+        sendMessage.push('签到失败', json.msg)
         return Promise.reject(sendMessage.join(', '))
       }
       sendMessage.push('签到成功')
