@@ -5,7 +5,7 @@ cron "0 9 * * *" sign_aliyundrive.js, tag=阿里云盘签到
 */
 
 const axios = require('axios')
-const { initInstance, getEnv, updateCkEnv } = require('./qlApi.js')
+const { initInstance, getEnv, updateCkEnv } = require('./ql_api.js')
 const notify = require('./sendNotify')
 
 const updateAccesssTokenURL = 'https://auth.aliyundrive.com/v2/account/token'

@@ -4,7 +4,7 @@ cron "0 9 * * *" sign_switch.js, tag=switch520签到
 const axios = require('axios')
 const { JSDOM } = require('jsdom')
 const notify = require('./sendNotify')
-const { initInstance, getEnv} = require('./qlApi.js')
+const { initInstance, getEnv} = require('./ql_api.js')
 const getnonceURL = 'https://www.switch520.org/user/coin';
 const signinURL = 'https://www.switch520.org/wp-admin/admin-ajax.php'
 
