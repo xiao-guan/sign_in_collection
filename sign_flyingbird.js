@@ -1,5 +1,6 @@
 /*
 cron "2 9 * * *" sign_flyingbird.js, tag=flyingbird签到
+new Env("flyingbird签到")
 */
 const axios = require('axios')
 const notify = require('./sendNotify')

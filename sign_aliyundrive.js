@@ -2,6 +2,7 @@
  * @Author: mrabit
  * @From: https://github.com/mrabit/aliyundriveDailyCheck
 cron "0 9 * * *" sign_aliyundrive.js, tag=阿里云盘签到
+new Env("阿里云盘签到")
 */
 
 const axios = require('axios')

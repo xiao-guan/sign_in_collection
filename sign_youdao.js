@@ -1,5 +1,6 @@
 /*
 cron "4 9 * * *" sign_youdao.js, tag=有道云笔记签到
+new Env("有道云笔记签到")
 */
 const axios = require('axios')
 const notify = require('./sendNotify')
@@ -64,7 +65,7 @@ async function sign_in(cookieValue, remarks){
         sendMessage.push('签到失败')
         return Promise.reject(sendMessage.join(', '))
       }
-      sendMessage.push('签到成功', json.space / 100000, 'MB')
+      sendMessage.push('签到成功', json.space / 1048576, 'MB')
   })
 }
 

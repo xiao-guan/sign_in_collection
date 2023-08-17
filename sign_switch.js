@@ -1,5 +1,6 @@
 /*
 cron "1 9 * * *" sign_switch.js, tag=switch520签到
+new Env("switch520签到")
 */
 const axios = require('axios')
 const { JSDOM } = require('jsdom')
