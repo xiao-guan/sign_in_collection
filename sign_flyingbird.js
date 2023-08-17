@@ -1,12 +1,10 @@
 /*
-cron "1 9 * * *" sign_switch.js, tag=switch520签到
+cron "2 9 * * *" sign_flyingbird.js, tag=flyingbird签到
 */
 const axios = require('axios')
-const { JSDOM } = require('jsdom')
 const notify = require('./sendNotify')
 const { initInstance, getEnv} = require('./ql_api.js')
-const getnonceURL = 'https://www.switch520.org/user/coin';
-const signinURL = 'https://www.switch520.org/wp-admin/admin-ajax.php'
+const signinURL = 'http://flyingbird.pro/user/checkin'
 
 
 // 获取环境变量
@@ -17,9 +15,9 @@ async function getCookieValue() {
   try {
     instance = await initInstance();
     if (instance) {
-      cookieValue = await getEnv(instance, 'switchck');
+      cookieValue = await getEnv(instance, 'flyingbirdck');
     } else {
-      cookieValue = process.env.switchck || [];
+      cookieValue = process.env.flyingbirdck || [];
     }
   } catch (e) {}
 
@@ -49,47 +47,23 @@ async function getCookieValue() {
 }
 
 
-async function getNonce(cookieValue){
-  return axios(getnonceURL, {
-    method: 'GET',
-    headers:{'Cookie':cookieValue}
-  })
-  .then(response => response.data)
-  .then(html => {
-    // 使用 jsdom 解析 HTML
-    const dom = new JSDOM(html);
-    const doc = dom.window.document;
-    
-    // 现在您可以使用 doc 对象来访问和操作页面的文档对象模型（DOM）
-    const buttonElement = doc.querySelector('.go-user-qiandao');
-    const dataNonce = buttonElement.getAttribute('data-nonce');
-    return dataNonce; // 将 dataNonce 作为结果返回
-  })
-  .catch(error => {
-    console.error('请求出错：', error, '检查下 cookie 有没有失效');
-    throw error; // 抛出错误，让调用方知道发生了错误
-  });
-}
-
-
 async function sign_in(cookieValue, remarks){
-  const nonce = await getNonce(cookieValue)
   const sendMessage = [remarks]
   return axios(signinURL, {
     method: 'POST',
-    data: `action=user_qiandao&nonce=${nonce}`,
+    data: {},
     headers: {
       'Cookie': cookieValue,
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/json'
     }
   })
   .then(response => response.data)
   .then(async json => {
-      if (json.status != 1) {
+      if (json.ret != 1) {
         sendMessage.push('签到失败', json.msg)
         return Promise.reject(sendMessage.join(', '))
       }
-      sendMessage.push('签到成功')
+      sendMessage.push('签到成功', json.msg)
   })
 }
 
@@ -97,11 +71,11 @@ async function sign_in(cookieValue, remarks){
   const {cookieValueArray} = await getCookieValue()
   const message = []
   let index = 1
-  for await(switchck of cookieValueArray) {
-    let remarks = switchck.remarks || `账号${index}`
+  for await(flyingbirdck of cookieValueArray) {
+    let remarks = flyingbirdck.remarks || `账号${index}`
     try {
       console.log(remarks)
-      const sendMessage = await sign_in(switchck, remarks)
+      const sendMessage = await sign_in(flyingbirdck, remarks)
       console.log(sendMessage)
       console.log('\n')
       message.push(sendMessage)
@@ -112,6 +86,6 @@ async function sign_in(cookieValue, remarks){
     }
     index++
   }
-  await notify.sendNotify(`switch520签到`, message.join('\n'))
+  await notify.sendNotify(`flyingbird签到`, message.join('\n'))
   
   })()
