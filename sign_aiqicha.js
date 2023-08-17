@@ -1,6 +1,6 @@
 /*
 cron "5 9 * * *" sign_aiqicha.js, tag=爱企查签到
- https://ghproxy.com/github.com/WindFgg/QuantumultX_Conf/blob/main/Scripts/aiqicha.js 爱企查日常任务
+ * https://ghproxy.com/github.com/WindFgg/QuantumultX_Conf/blob/main/Scripts/aiqicha.js 爱企查日常任务
  爱企查下载地址：https://aiqicha.baidu.com/m/usercenter/inviteCode?uid=xlTM-TogKuTwvdzTq9EFdGvdxrmJpAANFgmd
 
  手动抓取CK:https://passport.baidu.com/v2/?login 一个BDUSS=xxxxx;就行了
